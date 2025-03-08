@@ -1,4 +1,4 @@
-module github.com/libdns/scaleway
+module github.com/okami101/libdns-scaleway
 
 go 1.19
 
