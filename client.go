@@ -81,7 +81,12 @@ func (p *Provider) addDNSEntry(ctx context.Context, zone string, record libdns.R
 							Name: libdns.AbsoluteName(record.Name, zone),
 							Data: record.Value,
 							Type: domain.RecordType(record.Type),
-							TTL:  uint32(record.TTL.Seconds()),
+							TTL: func() uint32 {
+								if record.TTL.Seconds() == 0 {
+									return 60
+								}
+								return uint32(record.TTL.Seconds())
+							}(),
 						},
 					},
 				},
